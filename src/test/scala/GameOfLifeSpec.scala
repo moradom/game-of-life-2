@@ -18,6 +18,14 @@ class GameOfLifeSpec extends BaseSpec {
 
       result.isAlive shouldBe false
     }
+
+    "die with fewer than 2 live neighbours" in {
+      val cell = Cell(true)
+
+      val result = cell.next(Cell(true), Cell(false), Cell(false))
+
+      result.isAlive shouldBe false
+    }
   }
 }
 
