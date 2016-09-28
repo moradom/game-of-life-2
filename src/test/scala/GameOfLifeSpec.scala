@@ -4,17 +4,17 @@ class GameOfLifeSpec extends BaseSpec {
 
   "cell" should {
     "be made alive" in {
-      val cell = Cell()
+      val cell = Cell(false)
 
-      val result = awake(cell)
+      val result = cell.awake
 
-      result.isAlive shouldBe true
+      result shouldBe cell.copy(isAlive = true)
     }
 
     "be killed" in {
       val cell = Cell(true)
 
-      val result = kill(cell)
+      val result = cell.kill
 
       result.isAlive shouldBe false
     }
