@@ -2,15 +2,21 @@ import GameOfLife._
 
 class GameOfLifeSpec extends BaseSpec {
 
-  "baseDef" when {
-    "some scenario" should {
-      "condition(s) 1" in {
-//        splitGems(Seq.empty, 1) shouldBe Seq.empty
-      }
+  "cell" should {
+    "be made alive" in {
+      val cell = Cell()
 
-      "condition(s) 2" in {
-//        an[IllegalArgumentException] should be thrownBy splitGems(Seq(1, 2, 3), -1)
-      }
+      val result = awake(cell)
+
+      result.isAlive shouldBe true
+    }
+
+    "be killed" in {
+      val cell = Cell(true)
+
+      val result = kill(cell)
+
+      result.isAlive shouldBe false
     }
   }
 }
