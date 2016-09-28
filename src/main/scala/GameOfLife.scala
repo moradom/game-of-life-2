@@ -5,7 +5,8 @@ object GameOfLife {
 
     def kill = Cell(false)
 
-    def next(cell: Cell*) = Cell(false)
+    def next(neighbours: Cell*) =
+      if (neighbours.count(_.isAlive) == 1) Cell(false) else Cell(true)
   }
 
 }
