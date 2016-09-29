@@ -67,5 +67,23 @@ class GameOfLifeSpec extends BaseSpec {
       result.isAlive shouldBe false
     }
   }
+
+  "board" should {
+    "start with 2 dimensions of dead cells" in {
+      val result = Board(2, 3)
+
+      result.toString shouldBe """XXX
+                                 |XXX""".stripMargin
+    }
+
+    "be able to awake cells by position" in {
+      val board = Board(2, 3)
+
+      val result = board.awake((1,2)).awake((1,0), (0,2))
+
+      result.toString shouldBe """XXO
+                                 |OXO""".stripMargin
+    }
+  }
 }
 
