@@ -42,6 +42,14 @@ class GameOfLifeSpec extends BaseSpec {
 
       result.isAlive shouldBe true
     }
+
+    "die of overcrowding with more than 3 live neighbours" in {
+      val cell = Cell(true)
+
+      val result = cell.next(Cell(true), Cell(false), Cell(true), Cell(true), Cell(true))
+
+      result.isAlive shouldBe false
+    }
   }
 }
 
