@@ -84,6 +84,15 @@ class GameOfLifeSpec extends BaseSpec {
       result.toString shouldBe """XXO
                                  |OXO""".stripMargin
     }
+
+    "be able to kill cells by position" in {
+      val board = Board(2, 3)
+
+      val result = board.awake((1,2)).awake((1,0), (0,2)).kill((1,0), (1,2))
+
+      result.toString shouldBe """XXO
+                                 |XXX""".stripMargin
+    }
   }
 }
 

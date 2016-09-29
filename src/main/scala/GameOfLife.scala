@@ -17,6 +17,8 @@ object GameOfLife {
 
     def awake(cs: (Int, Int)*) = this.copy(alive = alive ++ cs)
 
+    def kill(cs: (Int, Int)*) = this.copy(alive = alive diff cs)
+
     override def toString: String = {
       def xo(c: (Int, Int)) = if (alive.contains(c)) "O" else "X"
 
