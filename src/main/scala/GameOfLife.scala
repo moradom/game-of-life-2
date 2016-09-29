@@ -7,7 +7,7 @@ object GameOfLife {
 
     def next(neighbours: Cell*) = {
       val alive = neighbours.count(_.isAlive)
-      Cell(alive == 2 || alive == 3)
+      Cell(isAlive && (alive == 2 || alive == 3))
     }
   }
 
