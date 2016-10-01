@@ -151,12 +151,24 @@ class GameOfLifeSpec extends BaseSpec {
          O   X X O   X
       */
 
-      """
-        |OOX
-        |OOX
-        |XXX
-      """.stripMargin
+    }
+
+    "wrap around the edges on a board with only 1 dead cell" in {
+      val board = Board(1, 1)
+
+      val result = board.next
+
+      result.toString shouldBe """X""".stripMargin
     }
   }
+
+  "wrap around the edges on a board with only 1 alive cell" in {
+    val board = Board(1, 1).awake((0, 0))
+
+    val result = board.next
+
+    result.toString shouldBe """X""".stripMargin
+  }
+
 }
 
