@@ -21,24 +21,22 @@ object GameOfLife {
     def kill(cs: (Int, Int)*) = this.copy(alive = alive diff cs)
 
     def liveNeighbours(row: Int, col: Int) = {
-      def notMe(r: Int, c: Int) = (r, c) != (row + 1, col + 1)
+      def notMe(r: Int, c: Int) = (r, c) != (row, col)
 
-      def nextToMe(r: Int, c: Int) = abs(row + 1 - r) <= 1 && abs(col + 1 - c) <= 1
+      val myNeighbours = for {
+        j <- - 1 to 1
+        k <- - 1 to 1
+      } yield (row + j, col + k)
 
-      def copyRow(s: Seq[(Int, Int)], from: Int, to: Int) =
-        s filter { case (r, c) => r == from } map { case (r, c) => (to, c) }
+      val myNeighboursWrapped = myNeighbours
+        .map{ case (r, c) =>
+          (
+            if (r == -1) rows - 1 else if (r == rows) 0 else r,
+            if (c == -1) cols - 1 else if (c == cols) 0 else c
+            )
+        }
 
-      def copyCol(s: Seq[(Int, Int)], from: Int, to: Int) =
-        s filter { case (r, c) => c == from } map { case (r, c) => (r, to) }
-
-      val shifted = alive.map(t => (t._1 + 1, t._2 + 1))
-      val large = shifted ++
-        copyRow(shifted, rows, 0) ++
-        copyRow(shifted, 0, rows) ++
-        copyCol(shifted, cols, 0) ++
-        copyCol(shifted, 0, cols)
-
-      large.count { case (r, c) => notMe(r, c) && nextToMe(r, c) }
+      alive.intersect(myNeighboursWrapped).count { case (r, c) => notMe(r, c) }
     }
 
     def next = {

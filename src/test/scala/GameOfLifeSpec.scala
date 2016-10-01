@@ -100,7 +100,7 @@ class GameOfLifeSpec extends BaseSpec {
       // X O X O
       val board = Board(3, 4)
         .awake((1,1)) // self, excluded
-        .awake((1,2), (1,0), (0,2), (2, 1))
+        .awake((1,2), (1,0), (0,2), (2,1))
         .awake((2,3)) // excluded
 
       val result = board.liveNeighbours(1, 1)
@@ -113,7 +113,7 @@ class GameOfLifeSpec extends BaseSpec {
       // O X O O
       // X O X X
       val board = Board(3, 4)
-        .awake((1,3), (1,0), (0,3), (2, 1))
+        .awake((0,3), (1,3), (1,0), (2,1))
         .awake((1,2)) // excluded
 
       val result = board.liveNeighbours(0, 0)
@@ -129,9 +129,9 @@ class GameOfLifeSpec extends BaseSpec {
 
       val result = board.next
 
-      result.toString shouldBe """XOO
+      result.toString shouldBe """OOO
                                  |OOO
-                                 |XOX""".stripMargin
+                                 |OOO""".stripMargin
       /*
          X   X X X   X
 
