@@ -3,22 +3,13 @@ import scala.util.Properties._
 
 object GameOfLife {
 
-  case class Cell(isAlive: Boolean = true) {
-    def awake = Cell()
-
-    def kill = Cell(false)
-
-    def next(neighbours: Cell*) = {
-      val alive = neighbours.count(_.isAlive)
-      Cell(alive == 3 || isAlive && alive == 2)
-    }
-  }
-
   case class Board(rows: Int, cols: Int, alive: Seq[(Int, Int)] = Seq.empty) {
 
     def awake(cs: (Int, Int)*) = this.copy(alive = alive ++ cs)
 
     def kill(cs: (Int, Int)*) = this.copy(alive = alive diff cs)
+
+    def isAlive(r: Int, c: Int) = alive.contains((r, c))
 
     def liveNeighbours(row: Int, col: Int) = {
       def notMe(r: Int, c: Int) = (r, c) != (row, col)
@@ -40,7 +31,6 @@ object GameOfLife {
     }
 
     def next = {
-      def isAlive(r: Int, c: Int) = alive.contains((r, c))
 
       val matrix = for {
         r <- 0 until rows

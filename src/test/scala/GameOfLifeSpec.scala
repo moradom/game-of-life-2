@@ -2,69 +2,69 @@ import GameOfLife._
 
 class GameOfLifeSpec extends BaseSpec {
 
-  "cell" should {
+  "cell on board" should {
     "be made alive" in {
-      val cell = Cell(false)
+      val board = Board(1, 1)
 
-      val result = cell.awake
+      val result = board.awake((0, 0))
 
-      result shouldBe cell.copy(isAlive = true)
+      result.isAlive(0, 0) shouldBe true
     }
 
     "be killed" in {
-      val cell = Cell(true)
+      val board = Board(1, 1).awake((0, 0))
 
-      val result = cell.kill
+      val result = board.kill((0, 0))
 
-      result.isAlive shouldBe false
+      result.isAlive(0, 0) shouldBe false
     }
 
     "die with fewer than 2 live neighbours" in {
-      val cell = Cell(true)
+      val board = Board(2, 2).awake((0, 0), (1,1))
 
-      val result = cell.next(Cell(true), Cell(false), Cell(false))
+      val result = board.next
 
-      result.isAlive shouldBe false
+      result.isAlive(0, 0) shouldBe false
     }
 
     "live on to the next generation with 2 live neighbours" in {
-      val cell = Cell(true)
+      val board = Board(3, 3).awake((0, 0), (1,1), (2,2))
 
-      val result = cell.next(Cell(true), Cell(false), Cell(true))
+      val result = board.next
 
-      result.isAlive shouldBe true
+      result.isAlive(1, 1) shouldBe true
     }
 
     "stay dead to the generation with 2 live neighbours" in {
-      val cell = Cell(false)
+      val board = Board(3, 3).awake((0, 0), (2,2))
 
-      val result = cell.next(Cell(true), Cell(false), Cell(true))
+      val result = board.next
 
-      result.isAlive shouldBe false
+      result.isAlive(1, 1) shouldBe false
     }
 
     "live on to the next generation with 3 live neighbours" in {
-      val cell = Cell(true)
+      val board = Board(3, 3).awake((0, 0), (0,1), (1,0), (1,1))
 
-      val result = cell.next(Cell(true), Cell(false), Cell(true), Cell(true))
+      val result = board.next
 
-      result.isAlive shouldBe true
+      result.isAlive(1, 0) shouldBe true
     }
 
     "come alive with exactly 3 live neighbours" in {
-      val cell = Cell(false)
+      val board = Board(3, 3).awake((0, 0), (0,1), (1,1))
 
-      val result = cell.next(Cell(true), Cell(false), Cell(true), Cell(true))
+      val result = board.next
 
-      result.isAlive shouldBe true
+      result.isAlive(1, 0) shouldBe true
     }
 
     "die of overcrowding with more than 3 live neighbours" in {
-      val cell = Cell(true)
+      val board = Board(3, 3).awake((0, 0), (0,1), (1,0), (1,1), (1,2))
 
-      val result = cell.next(Cell(true), Cell(false), Cell(true), Cell(true), Cell(true))
+      val result = board.next
 
-      result.isAlive shouldBe false
+      result.isAlive(0, 1) shouldBe false
     }
   }
 
