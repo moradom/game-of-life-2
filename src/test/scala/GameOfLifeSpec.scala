@@ -12,7 +12,7 @@ class GameOfLifeSpec extends BaseSpec {
     }
 
     "be killed" in {
-      val board = Board(1, 1).awake((0, 0))
+      val board = Board(1, 1, Seq((0, 0)))
 
       val result = board.kill((0, 0))
 
@@ -20,7 +20,7 @@ class GameOfLifeSpec extends BaseSpec {
     }
 
     "die with fewer than 2 live neighbours" in {
-      val board = Board(2, 2).awake((0, 0), (1,1))
+      val board = Board(2, 2, Seq((0, 0), (1,1)))
 
       val result = board.next
 
@@ -28,7 +28,7 @@ class GameOfLifeSpec extends BaseSpec {
     }
 
     "live on to the next generation with 2 live neighbours" in {
-      val board = Board(3, 3).awake((0, 0), (1,1), (2,2))
+      val board = Board(3, 3, Seq((0, 0), (1,1), (2,2)))
 
       val result = board.next
 
@@ -36,7 +36,7 @@ class GameOfLifeSpec extends BaseSpec {
     }
 
     "stay dead to the generation with 2 live neighbours" in {
-      val board = Board(3, 3).awake((0, 0), (2,2))
+      val board = Board(3, 3, Seq((0, 0), (2,2)))
 
       val result = board.next
 
@@ -44,7 +44,7 @@ class GameOfLifeSpec extends BaseSpec {
     }
 
     "live on to the next generation with 3 live neighbours" in {
-      val board = Board(3, 3).awake((0, 0), (0,1), (1,0), (1,1))
+      val board = Board(3, 3, Seq((0, 0), (0,1), (1,0), (1,1)))
 
       val result = board.next
 
@@ -52,7 +52,7 @@ class GameOfLifeSpec extends BaseSpec {
     }
 
     "come alive with exactly 3 live neighbours" in {
-      val board = Board(3, 3).awake((0, 0), (0,1), (1,1))
+      val board = Board(3, 3, Seq((0, 0), (0,1), (1,1)))
 
       val result = board.next
 
@@ -60,7 +60,7 @@ class GameOfLifeSpec extends BaseSpec {
     }
 
     "die of overcrowding with more than 3 live neighbours" in {
-      val board = Board(3, 3).awake((0, 0), (0,1), (1,0), (1,1), (1,2))
+      val board = Board(3, 3, Seq((0, 0), (0,1), (1,0), (1,1), (1,2)))
 
       val result = board.next
 
