@@ -66,6 +66,15 @@ class GameOfLifeSpec extends BaseSpec {
 
       result.isAlive(0, 1) shouldBe false
     }
+
+    "be made alive twice should count as made alive only once" in {
+      val board = Board(1, 1, Seq((0,0))).awake((0,0))
+
+      val result = board.kill((0, 0))
+
+      result.isAlive(0, 0) shouldBe false
+    }
+
   }
 
   "board" should {
