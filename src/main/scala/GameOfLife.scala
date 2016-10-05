@@ -5,7 +5,7 @@ object GameOfLife {
 
   case class Board(rows: Int, cols: Int, alive: Seq[(Int, Int)] = Seq.empty) {
 
-    def awake(cs: (Int, Int)*) = this.copy(alive = alive ++ cs)
+    def awake(cs: (Int, Int)*) = this.copy(alive = (alive ++ cs).distinct)
 
     def kill(cs: (Int, Int)*) = this.copy(alive = alive diff cs)
 
